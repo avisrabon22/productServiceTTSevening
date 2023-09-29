@@ -1,38 +1,38 @@
 package com.avijit.scalerproductproject.Controller;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.avijit.scalerproductproject.DTO.ProdDto;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
-// *******************************************************************
-@GetMapping("/products")
-    public String getAllProduct(){
+    // *******************************************************************
+    @GetMapping("/products")
+    public String getAllProduct() {
         return " getting all product";
     }
 
     // *****************************************************
 
-     @GetMapping("/product/{prodId}")
-    public String getOneProduct(@PathVariable("prodId") Long prodId){
+    @GetMapping("/product/{prodId}")
+    public String getOneProduct(@PathVariable("prodId") Long prodId) {
         return "One product";
     }
+
     // *************************************************************
-@PostMapping("/addProduct/")
-    public String addNewProduct(@PathVariable("prodId") Long prodId){
-        return "Product added";
+    @PostMapping("/addProduct/")
+    public String addNewProduct(@RequestBody ProdDto prodDto) {
+        return "Product added of " + prodDto;
     }
+
     // ****************************************************************
-@DeleteMapping("/deletProd/{prodId}")
-    public String deleteProduct(@PathVariable("prodId" Long prodId)){
-        return "Product deleted";
+    @DeleteMapping("/deletProd/{prodId}")
+    public String deleteProduct(@PathVariable("prodId") Long prodId) {
+        return "Product deleted of " + prodId;
     }
-    // *****************************************************************8
-@PutMapping("/updateProduct/{prodId}")
-    public String updateProduct(@PathVariable("prodId" Long prodId){
-        return "Product updated";
+
+    // *****************************************************************
+    @PutMapping("/updateProduct/{prodId}")
+    public String updateProduct(@PathVariable("prodId") Long prodId) {
+        return "Product updated of " + prodId;
     }
 }
