@@ -19,9 +19,9 @@ public class ProductController {
     }
 
     // *************************************************************
-    @PostMapping("/addProduct/")
+        @PostMapping("/addProduct")
     public String addNewProduct(@RequestBody ProdDto prodDto) {
-        return "Product added of " + prodDto;
+        return prodDto.getTitle()+" added in database." ;
     }
 
     // ****************************************************************
