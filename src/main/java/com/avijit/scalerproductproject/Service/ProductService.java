@@ -1,9 +1,8 @@
 package com.avijit.scalerproductproject.Service;
 
 import com.avijit.scalerproductproject.DTO.ProdDto;
-import org.springframework.web.bind.annotation.*;
 
-public class ProductServiceImpl implements ProductServiceInterface {
+public class ProductService implements ProductServiceInterface {
 
 
     @Override
