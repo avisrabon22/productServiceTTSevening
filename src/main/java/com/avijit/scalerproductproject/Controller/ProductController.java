@@ -2,15 +2,15 @@ package com.avijit.scalerproductproject.Controller;
 
 import com.avijit.scalerproductproject.DTO.ProdDto;
 import com.avijit.scalerproductproject.Service.ProductService;
+import com.avijit.scalerproductproject.Service.ProductServiceInterface;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
+    private ProductServiceInterface productServiceInterface;
 
-    private ProductService productService;
-
-    public ProductController(ProductService productService){
-        this.productService=productService;
+    public ProductController(ProductServiceInterface productServiceInterface){
+        this.productServiceInterface=productServiceInterface;
     }
 
     // *******************************************************************

@@ -1,13 +1,20 @@
 package com.avijit.scalerproductproject.Service;
+//import com.avijit.scalerproductproject.DTO.ProdDto;
+import com.avijit.scalerproductproject.Model.Product;
 
-import com.avijit.scalerproductproject.DTO.ProdDto;
+import java.util.List;
 
 public interface ProductServiceInterface {
-    String getAllProduct();
+    List<Product> getAllProduct();
 
-    String getOneProduct(Long prodId);
+    Product getOneProduct(Long prodId);
 
-    String addNewProduct(ProdDto prodDto);
+    Product addNewProduct(
+            String title,
+            double price,
+            String description,
+            String image_url
+    );
 
     String deleteProduct(Long prodId);
 

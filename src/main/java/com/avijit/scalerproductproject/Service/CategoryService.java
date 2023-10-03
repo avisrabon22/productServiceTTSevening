@@ -1,7 +1,10 @@
 package com.avijit.scalerproductproject.Service;
 
 import com.avijit.scalerproductproject.DTO.ProdDto;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class CategoryService implements CategoryServiceInterface {
     @Override
     public String getAllCategory() {
