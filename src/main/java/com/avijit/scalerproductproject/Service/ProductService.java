@@ -1,15 +1,9 @@
 package com.avijit.scalerproductproject.Service;
 
 import com.avijit.scalerproductproject.DTO.ProdDto;
-
-<<<<<<< HEAD:src/main/java/com/avijit/scalerproductproject/Service/ProductServiceImpl.java
-public class ProductServiceImpl implements ProductServiceInterface {
-=======
 public class ProductService implements ProductServiceInterface {
 
-
->>>>>>> 946e6090a14978105661baf08003fc578e014f34:src/main/java/com/avijit/scalerproductproject/Service/ProductService.java
-    @Override
+  @Override
     public String getAllProduct() {
         return " getting all product";
     }

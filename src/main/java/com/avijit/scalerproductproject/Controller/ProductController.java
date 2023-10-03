@@ -2,8 +2,6 @@ package com.avijit.scalerproductproject.Controller;
 
 import com.avijit.scalerproductproject.DTO.ProdDto;
 import com.avijit.scalerproductproject.Service.ProductService;
-import com.avijit.scalerproductproject.Service.ProductServiceImpl;
-import com.avijit.scalerproductproject.Service.ProductServiceInterface;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
