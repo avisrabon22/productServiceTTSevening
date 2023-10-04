@@ -4,6 +4,8 @@ import com.avijit.scalerproductproject.DTO.ProdDto;
 import com.avijit.scalerproductproject.Service.ProductServiceInterface;
 
 public class FakeStoreProdApiService implements ProductServiceInterface {
+
+
     @Override
     public String getAllProduct() {
         return null;

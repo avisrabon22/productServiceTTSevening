@@ -1,10 +1,17 @@
 package com.avijit.scalerproductproject.Controller;
 
 import com.avijit.scalerproductproject.DTO.ProdDto;
+import com.avijit.scalerproductproject.Service.CategoryService;
+import com.avijit.scalerproductproject.Service.CategoryServiceInterface;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CategoryController {
+    private CategoryServiceInterface categoryServiceInterface;
+
+    public CategoryController(CategoryServiceInterface categoryServiceInterface){
+        this.categoryServiceInterface=categoryServiceInterface;
+    }
 
     @GetMapping("/category/{categoryId}")
     public String getAllCategory(){

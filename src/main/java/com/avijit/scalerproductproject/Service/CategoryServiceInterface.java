@@ -7,7 +7,13 @@ public interface  CategoryServiceInterface {
 
     String getOneCategory(Long prodId);
 
-    String addNewCategory(ProdDto prodDto);
+    String addNewCategory(
+            String title,
+            double price,
+            String description,
+            String image_url,
+            String category
+    );
 
     String deleteCategory(Long prodId);
 
