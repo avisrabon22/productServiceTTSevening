@@ -2,7 +2,7 @@ package com.avijit.scalerproductproject.Service;
 
 import com.avijit.scalerproductproject.DTO.ProdDto;
 
-public interface CategoryServiceInterface {
+public interface  CategoryServiceInterface {
     String getAllCategory();
 
     String getOneCategory(Long prodId);
