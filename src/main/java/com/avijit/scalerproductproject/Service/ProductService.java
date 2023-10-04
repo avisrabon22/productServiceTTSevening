@@ -1,34 +1,36 @@
 package com.avijit.scalerproductproject.Service;
 
 import com.avijit.scalerproductproject.DTO.ProdDto;
+import com.avijit.scalerproductproject.Model.Product;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductService implements ProductServiceInterface {
 
-  @Override
-    public String getAllProduct() {
-        return " getting all product";
+    @Override
+    public List<Product> getAllProduct() {
+        return null;
     }
 
-    // *****************************************************
     @Override
-    public String getOneProduct(Long prodId) {
-        return "One product";
+    public Product getOneProduct(Long prodId) {
+        return null;
     }
-    // *************************************************************
+
     @Override
-    public String addNewProduct(ProdDto prodDto) {
-        return prodDto.getTitle()+" added in database." ;
+    public Product addNewProduct(Product product) {
+        return null;
     }
-    // ****************************************************************
+
     @Override
-    public String deleteProduct(Long prodId) {
-        return "Product deleted of " + prodId;
+    public boolean deleteProduct(Long prodId) {
+        return false;
     }
-    // *****************************************************************
+
     @Override
-    public String updateProduct(Long prodId) {
-        return "Product updated of " + prodId;
+    public Product updateProduct(Long prodId) {
+        return null;
     }
 }
