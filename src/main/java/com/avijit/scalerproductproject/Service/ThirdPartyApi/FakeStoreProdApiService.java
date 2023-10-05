@@ -6,12 +6,14 @@ import com.avijit.scalerproductproject.Model.Product;
 import com.avijit.scalerproductproject.Service.ProductServiceInterface;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+@Service
 public class FakeStoreProdApiService implements ProductServiceInterface {
-    private RestTemplateBuilder restTemplateBuilder;
+    private final RestTemplateBuilder restTemplateBuilder;
 
     public FakeStoreProdApiService(RestTemplateBuilder restTemplateBuilder){
         this.restTemplateBuilder=restTemplateBuilder;
@@ -25,6 +27,7 @@ public class FakeStoreProdApiService implements ProductServiceInterface {
         ProdDto prodDto = responseEntity.getBody();
 
         Product product = new Product();
+        assert prodDto != null;
         product.setId(prodDto.getId());
         product.setTitle(prodDto.getTitle());
         product.setPrice(prodDto.getPrice());
@@ -47,7 +50,7 @@ public class FakeStoreProdApiService implements ProductServiceInterface {
     }
 //***********************************************************************************
     @Override
-    public Product updateProduct(Long prodId) {
+    public Product updateProduct(Product product,Long prodId) {
         return null;
     }
 //***************************************************************************************
