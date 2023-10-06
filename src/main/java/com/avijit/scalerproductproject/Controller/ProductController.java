@@ -30,6 +30,7 @@ public class ProductController {
     // *************************************************************
         @PostMapping()
     public String addNewProduct(@RequestBody ProdDto prodDto) {
+        
         return prodDto.getTitle()+" added in database." ;
     }
 
