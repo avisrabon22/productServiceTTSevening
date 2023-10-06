@@ -1,5 +1,6 @@
 package com.avijit.scalerproductproject.Service;
 //import com.avijit.scalerproductproject.DTO.ProdDto;
+import com.avijit.scalerproductproject.DTO.ProdDto;
 import com.avijit.scalerproductproject.Model.Product;
 
 import java.util.List;
@@ -9,14 +10,9 @@ public interface ProductServiceInterface {
 
     Product getOneProduct(Long prodId);
 
-    Product addNewProduct(
-            String title,
-            double price,
-            String description,
-            String image_url
-    );
+    Product addNewProduct(Product product);
 
-    String deleteProduct(Long prodId);
+    boolean deleteProduct(Long prodId);
 
-    String updateProduct(Long prodId);
+    Product updateProduct(Product product,Long prodId);
 }
