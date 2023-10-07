@@ -1,4 +1,4 @@
-package com.avijit.scalerproductproject.DTO;
+package com.avijit.scalerproductproject.DTO.ProductDto;
 
 
 import com.avijit.scalerproductproject.Model.Product;

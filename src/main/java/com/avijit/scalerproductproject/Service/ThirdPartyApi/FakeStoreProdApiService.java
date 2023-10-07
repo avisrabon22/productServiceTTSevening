@@ -1,6 +1,6 @@
 package com.avijit.scalerproductproject.Service.ThirdPartyApi;
 
-import com.avijit.scalerproductproject.DTO.ProdDto;
+import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
 import com.avijit.scalerproductproject.Model.Category;
 import com.avijit.scalerproductproject.Model.Product;
 import com.avijit.scalerproductproject.Service.ProductServiceInterface;
@@ -40,7 +40,7 @@ public class FakeStoreProdApiService implements ProductServiceInterface {
     }
 //***************************************************************************************
     @Override
-    public Product addNewProduct(Product product) {
+    public Product addNewProduct(ProdDto product) {
     RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<ProdDto> response=restTemplate.postForEntity(
                 "https://fakestoreapi.com/products",

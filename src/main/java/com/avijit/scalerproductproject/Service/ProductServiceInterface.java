@@ -1,6 +1,6 @@
 package com.avijit.scalerproductproject.Service;
 
-import com.avijit.scalerproductproject.DTO.ProdDto;
+import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
 import com.avijit.scalerproductproject.Model.Product;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public interface ProductServiceInterface {
 
     Product getOneProduct(Long prodId);
 
-    Product addNewProduct(Product product);
+    Product addNewProduct(ProdDto product);
 
     boolean deleteProduct(Long prodId);
 
