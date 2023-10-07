@@ -1,5 +1,5 @@
 package com.avijit.scalerproductproject.Service;
-//import com.avijit.scalerproductproject.DTO.ProdDto;
+
 import com.avijit.scalerproductproject.DTO.ProdDto;
 import com.avijit.scalerproductproject.Model.Product;
 

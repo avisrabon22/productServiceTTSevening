@@ -12,5 +12,5 @@ public class ProdDto {
     private double price;
     private String category;
     private String description;
-    private String image_url;
+    private String image;
 }

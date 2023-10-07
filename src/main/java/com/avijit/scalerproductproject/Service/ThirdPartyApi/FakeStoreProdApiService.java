@@ -34,14 +34,33 @@ public class FakeStoreProdApiService implements ProductServiceInterface {
         Category category = new Category();
         category.setName(prodDto.getCategory());
         product.setCategory(category);
-        product.setImageUrl(prodDto.getImage_url());
+        product.setImageUrl(prodDto.getImage());
 
         return product;
     }
 //***************************************************************************************
     @Override
     public Product addNewProduct(Product product) {
-        return null;
+    RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<ProdDto> response=restTemplate.postForEntity(
+                "https://fakestoreapi.com/products",
+                product,
+                ProdDto.class
+        );
+
+        ProdDto prodDto = response.getBody();
+
+        Product currentProd = new Product();
+        assert prodDto != null;
+        currentProd.setId(prodDto.getId());
+        currentProd.setTitle(prodDto.getTitle());
+        currentProd.setPrice(prodDto.getPrice());
+        Category category = new Category();
+        category.setName(prodDto.getCategory());
+        currentProd.setCategory(category);
+        currentProd.setImageUrl(prodDto.getImage());
+
+        return currentProd;
     }
 //**************************************************************************************
     @Override

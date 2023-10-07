@@ -2,7 +2,11 @@ package com.avijit.scalerproductproject.Controller;
 
 import com.avijit.scalerproductproject.DTO.ProdDto;
 import com.avijit.scalerproductproject.DTO.ResponseOneProductDto;
+import com.avijit.scalerproductproject.Model.Product;
 import com.avijit.scalerproductproject.Service.ProductServiceInterface;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,8 +33,14 @@ public class ProductController {
      }
     // *************************************************************
         @PostMapping()
-    public String addNewProduct(@RequestBody ProdDto prodDto) {
-        return prodDto.getTitle()+" added in database." ;
+    public ResponseEntity<Product> addNewProduct(@RequestBody Product product) {
+            Product newProd = productServiceInterface.addNewProduct(
+                    product
+            );
+            ResponseEntity<Product> response;
+            response = new ResponseEntity<>(newProd, HttpStatus.OK);
+
+            return response;
     }
 
     // ****************************************************************
