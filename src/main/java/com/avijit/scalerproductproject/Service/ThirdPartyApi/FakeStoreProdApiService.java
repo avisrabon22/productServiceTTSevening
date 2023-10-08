@@ -64,14 +64,13 @@ public class FakeStoreProdApiService implements ProductServiceInterface {
 @Override
 public List<Product> getAllProduct() {
         RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<List> apiProdList = restTemplate.getForEntity(
+        ResponseEntity<ProdDto[]> apiProdList = restTemplate.getForEntity(
                 "https://fakestoreapi.com/products",
-                List.class
+                ProdDto[].class
         );
-     List<Product> productList = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
 
-     for(Object object:apiProdList.getBody()){
-         ProdDto prodDto = (ProdDto) object;
+     for(ProdDto prodDto:apiProdList.getBody()){
          Product product = new Product();
          product.setId(prodDto.getId());
          product.setTitle(prodDto.getTitle());
