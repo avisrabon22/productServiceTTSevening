@@ -8,17 +8,15 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
+import java.util.*;
 
 @Service
 public class FakeStoreProdApiService implements ProductServiceInterface {
     private final RestTemplateBuilder restTemplateBuilder;
-
+    //***************************************************************************************
     public FakeStoreProdApiService(RestTemplateBuilder restTemplateBuilder){
         this.restTemplateBuilder=restTemplateBuilder;
     }
-
 //******************************************************************************************
     @Override
     public Product getOneProduct(Long prodId) {
@@ -63,6 +61,30 @@ public class FakeStoreProdApiService implements ProductServiceInterface {
         return currentProd;
     }
 //**************************************************************************************
+@Override
+public List<Product> getAllProduct() {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<List> apiProdList = restTemplate.getForEntity(
+                "https://fakestoreapi.com/products",
+                List.class
+        );
+     List<Product> productList = new ArrayList<>();
+
+     for(Object object:apiProdList.getBody()){
+         ProdDto prodDto = (ProdDto) object;
+         Product product = new Product();
+         product.setId(prodDto.getId());
+         product.setTitle(prodDto.getTitle());
+         product.setPrice(prodDto.getPrice());
+         Category category = new Category();
+         category.setName(prodDto.getCategory());
+         product.setCategory(category);
+         product.setImageUrl(prodDto.getImage());
+        productList.add(product);
+     }
+    return productList;
+}
+//***************************************************************************************
     @Override
     public boolean deleteProduct(Long prodId) {
         return false;
@@ -72,12 +94,4 @@ public class FakeStoreProdApiService implements ProductServiceInterface {
     public Product updateProduct(Product product,Long prodId) {
         return null;
     }
-//***************************************************************************************
-    @Override
-    public List<Product> getAllProduct() {
-
-
-        return null;
-    }
-
 }

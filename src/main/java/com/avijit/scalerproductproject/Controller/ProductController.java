@@ -13,6 +13,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 //import java.util.HashMap;
 //import java.util.Map;
 
@@ -20,15 +21,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/product")
 public class ProductController {
     private final ProductServiceInterface productServiceInterface;
-
     public ProductController(ProductServiceInterface productServiceInterface) {
         this.productServiceInterface = productServiceInterface;
     }
 
     // *******************************************************************
     @GetMapping()
-    public String getAllProduct() {
-        return " getting all product";
+    public List<Product> getAllProduct() {
+        return productServiceInterface.getAllProduct();
     }
 
     // *****************************************************
@@ -61,7 +61,6 @@ public class ProductController {
         response = new ResponseEntity<>(newProd, HttpStatus.OK);
 
         return response;
-
     }
         // ****************************************************************
 
