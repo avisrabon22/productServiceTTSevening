@@ -1,5 +1,6 @@
 package com.avijit.scalerproductproject.Service.ThirdPartyApi;
 
+import com.avijit.scalerproductproject.DTO.ProductDto.FakeStoreApiDto;
 import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
 import com.avijit.scalerproductproject.Model.Category;
 import com.avijit.scalerproductproject.Model.Product;
@@ -64,21 +65,21 @@ public class FakeStoreProdApiService implements ProductServiceInterface {
 @Override
 public List<Product> getAllProduct() {
         RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<ProdDto[]> apiProdList = restTemplate.getForEntity(
+        ResponseEntity<FakeStoreApiDto[]> apiProdList = restTemplate.getForEntity(
                 "https://fakestoreapi.com/products",
-                ProdDto[].class
+                FakeStoreApiDto[].class
         );
         List<Product> productList = new ArrayList<>();
 
-     for(ProdDto prodDto:apiProdList.getBody()){
+     for(FakeStoreApiDto fakeStoreApiDto:apiProdList.getBody()){
          Product product = new Product();
-         product.setId(prodDto.getId());
-         product.setTitle(prodDto.getTitle());
-         product.setPrice(prodDto.getPrice());
+         product.setId(fakeStoreApiDto.getId());
+         product.setTitle(fakeStoreApiDto.getTitle());
+         product.setPrice(fakeStoreApiDto.getPrice());
          Category category = new Category();
-         category.setName(prodDto.getCategory());
+         category.setName(fakeStoreApiDto.getCategory());
          product.setCategory(category);
-         product.setImageUrl(prodDto.getImage());
+         product.setImageUrl(fakeStoreApiDto.getImage());
         productList.add(product);
      }
     return productList;
