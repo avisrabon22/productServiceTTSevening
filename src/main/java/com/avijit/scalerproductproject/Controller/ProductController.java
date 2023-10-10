@@ -68,12 +68,12 @@ public class ProductController {
 
         @DeleteMapping("/{prodId}")
         public String deleteProduct (@PathVariable("prodId") Long prodId){
+
             return "Product deleted " + prodId;
         }
         // *****************************************************************
         @PatchMapping("/{prodId}")
         public Product updateProduct (@PathVariable("prodId") Long prodId , @RequestBody ProdDto prodDto){
-
         Product product = new Product();
         product.setTitle(prodDto.getTitle());
         product.setPrice(prodDto.getPrice());
@@ -81,7 +81,6 @@ public class ProductController {
         product.setCategory(new Category());
         product.getCategory().setName(prodDto.getCategory());
         product.setImageUrl(prodDto.getImage());
-
 
         return productServiceInterface.updateProduct(product, prodId);
         }

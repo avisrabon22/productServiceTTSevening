@@ -8,6 +8,7 @@ import com.avijit.scalerproductproject.Service.ProductServiceInterface;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RequestCallback;
@@ -39,7 +40,9 @@ public class FakeStoreProdApiService implements ProductServiceInterface {
     }
 //*************************Customized Post entity for update method of product  *****************************************************************
 private  <T> ResponseEntity<T> requestForEntity(HttpMethod httpMethod,String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException {
-    RestTemplate restTemplate = restTemplateBuilder.build();
+    RestTemplate restTemplate = restTemplateBuilder.requestFactory(
+            HttpComponentsClientHttpRequestFactory.class
+    ).build();
         RequestCallback requestCallback = restTemplate.httpEntityCallback(request, responseType);
     ResponseExtractor<ResponseEntity<T>> responseExtractor = restTemplate.responseEntityExtractor(responseType);
     return  restTemplate.execute(url, httpMethod, requestCallback, responseExtractor, uriVariables);
@@ -113,7 +116,7 @@ public List<Product> getAllProduct() {
 
 
          ResponseEntity<FakeStoreApiDto> productDtoResponseEntity =requestForEntity(
-                 HttpMethod.PATCH,
+                 HttpMethod.PUT,
                  "https://fakestoreapi.com/products/{id}",
                  fakeStoreApiDto,
                  FakeStoreApiDto.class,
