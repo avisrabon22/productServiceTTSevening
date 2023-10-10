@@ -3,7 +3,9 @@ package com.avijit.scalerproductproject.Controller;
 //import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
 //import com.avijit.scalerproductproject.DTO.ProductDto.ResponseOneProductDto;
 import com.avijit.scalerproductproject.DTO.ProductDto.AddProductDto;
+import com.avijit.scalerproductproject.DTO.ProductDto.FakeStoreApiDto;
 import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
+import com.avijit.scalerproductproject.Model.Category;
 import com.avijit.scalerproductproject.Model.Product;
 import com.avijit.scalerproductproject.Service.ProductServiceInterface;
 import org.springframework.http.HttpStatus;
@@ -53,7 +55,7 @@ public class ProductController {
 
     // *************************************************************
     @PostMapping()
-    public ResponseEntity<Product> addNewProduct(@RequestBody ProdDto product) {
+    public ResponseEntity<Product> addNewProduct(@RequestBody FakeStoreApiDto product) {
         Product newProd = productServiceInterface.addNewProduct(
                 product
         );
@@ -69,8 +71,18 @@ public class ProductController {
             return "Product deleted " + prodId;
         }
         // *****************************************************************
-        @PutMapping("/{prodId}")
-        public String updateProduct (@PathVariable("prodId") Long prodId){
-            return "Product updated " + prodId;
+        @PatchMapping("/{prodId}")
+        public Product updateProduct (@PathVariable("prodId") Long prodId , @RequestBody ProdDto prodDto){
+
+        Product product = new Product();
+        product.setTitle(prodDto.getTitle());
+        product.setPrice(prodDto.getPrice());
+        product.setDescription(prodDto.getDescription());
+        product.setCategory(new Category());
+        product.getCategory().setName(prodDto.getCategory());
+        product.setImageUrl(prodDto.getImage());
+
+
+        return productServiceInterface.updateProduct(product, prodId);
         }
     }
