@@ -49,22 +49,29 @@ private  <T> ResponseEntity<T> requestForEntity(HttpMethod httpMethod,String url
 }
 //   ********************************************************************************
     @Override
-    public Product getOneProduct(Long prodId) {
+    public Optional<Product> getOneProduct(Long prodId) {
         RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<ProdDto> responseEntity =restTemplate.getForEntity("https://fakestoreapi.com/products/{id}",ProdDto.class,prodId);
-        ProdDto prodDto = responseEntity.getBody();
+        ResponseEntity<FakeStoreApiDto> responseEntity =restTemplate.getForEntity(
+                "https://fakestoreapi.com/products/{id}",
+                FakeStoreApiDto.class,
+                prodId);
 
-        Product product = new Product();
-        assert prodDto != null;
-        product.setId(prodDto.getId());
-        product.setTitle(prodDto.getTitle());
-        product.setPrice(prodDto.getPrice());
-        Category category = new Category();
-        category.setName(prodDto.getCategory());
-        product.setCategory(category);
-        product.setImageUrl(prodDto.getImage());
-
-        return product;
+        FakeStoreApiDto fakeStoreApiDto = responseEntity.getBody();
+        if(fakeStoreApiDto==null){
+            return Optional.empty();
+        }
+        return Optional.of(convertFakstoreProductDtoToProduct(responseEntity.getBody()));
+//        Product product = new Product();
+//        assert prodDto != null;
+//        product.setId(prodDto.getId());
+//        product.setTitle(prodDto.getTitle());
+//        product.setPrice(prodDto.getPrice());
+//        Category category = new Category();
+//        category.setName(prodDto.getCategory());
+//        product.setCategory(category);
+//        product.setImageUrl(prodDto.getImage());
+//
+//        return product;
     }
 
 
@@ -116,7 +123,7 @@ public List<Product> getAllProduct() {
 
 
          ResponseEntity<FakeStoreApiDto> productDtoResponseEntity =requestForEntity(
-                 HttpMethod.PUT,
+                 HttpMethod.PATCH,
                  "https://fakestoreapi.com/products/{id}",
                  fakeStoreApiDto,
                  FakeStoreApiDto.class,
