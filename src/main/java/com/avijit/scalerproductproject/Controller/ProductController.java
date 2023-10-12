@@ -5,9 +5,11 @@ package com.avijit.scalerproductproject.Controller;
 import com.avijit.scalerproductproject.DTO.ProductDto.AddProductDto;
 import com.avijit.scalerproductproject.DTO.ProductDto.FakeStoreApiDto;
 import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
+import com.avijit.scalerproductproject.Exception.NoDataFound;
 import com.avijit.scalerproductproject.Model.Category;
 import com.avijit.scalerproductproject.Model.Product;
 import com.avijit.scalerproductproject.Service.ProductServiceInterface;
+import com.avijit.scalerproductproject.Service.ThirdPartyApi.FakeStoreProdApiService;
 import org.springframework.http.HttpStatus;
 //import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 //import java.util.HashMap;
 //import java.util.Map;
 
@@ -35,7 +38,7 @@ public class ProductController {
 
     // *****************************************************
     @GetMapping("/{prodId}")
-    public ResponseEntity<Product> getOneProduct(@PathVariable("prodId") Long prodId) {
+    public ResponseEntity<Product> getOneProduct(@PathVariable("prodId") Long prodId) throws NoDataFound {
 //             ResponseOneProductDto responseDto =new ResponseOneProductDto();
 //             responseDto.setProduct(productServiceInterface.getOneProduct(prodId));
 
@@ -43,10 +46,15 @@ public class ProductController {
         headers.add(
                 "auth-token", "tui_bal_pabi"
         );
+        Optional<Product> productOptional= productServiceInterface.getOneProduct(prodId);
+        if(productOptional.isEmpty())
+        {
+            throw new NoDataFound("No such Id found in database.");
+        }
 
         ResponseEntity<Product> response;
         response = new ResponseEntity<>(
-                productServiceInterface.getOneProduct(prodId),
+                productServiceInterface.getOneProduct(prodId).get(),
                 headers,
                 HttpStatus.NOT_FOUND
         );
