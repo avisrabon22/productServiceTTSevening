@@ -1,16 +1,13 @@
 package com.avijit.scalerproductproject.Controller;
 
 //import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
-//import com.avijit.scalerproductproject.DTO.ProductDto.ResponseOneProductDto;
-import com.avijit.scalerproductproject.DTO.ProductDto.AddProductDto;
-import com.avijit.scalerproductproject.DTO.ProductDto.ExceptionHandleDto;
-import com.avijit.scalerproductproject.DTO.ProductDto.FakeStoreApiDto;
+//import com.avijit.scalerproductproject.DTO.ProductDto.RandD.ResponseOneProductDto;
+import com.avijit.scalerproductproject.Clients.FakeStore.FakeStoreApiDto;
 import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
 import com.avijit.scalerproductproject.Exception.NoDataFound;
 import com.avijit.scalerproductproject.Model.Category;
 import com.avijit.scalerproductproject.Model.Product;
 import com.avijit.scalerproductproject.Service.ProductServiceInterface;
-import com.avijit.scalerproductproject.Service.ThirdPartyApi.FakeStoreProdApiService;
 import org.springframework.http.HttpStatus;
 //import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -93,7 +90,5 @@ public class ProductController {
 
         return productServiceInterface.updateProduct(product, prodId);
         }
-
-
 
     }

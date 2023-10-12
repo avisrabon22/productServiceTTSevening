@@ -1,4 +1,4 @@
-package com.avijit.scalerproductproject.DTO.ProductDto;
+package com.avijit.scalerproductproject.Clients.FakeStore;
 
 
 import lombok.Getter;

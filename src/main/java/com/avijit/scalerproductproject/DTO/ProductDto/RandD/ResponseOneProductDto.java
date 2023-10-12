@@ -1,4 +1,4 @@
-package com.avijit.scalerproductproject.DTO.ProductDto;
+package com.avijit.scalerproductproject.DTO.ProductDto.RandD;
 
 
 import com.avijit.scalerproductproject.Model.Product;

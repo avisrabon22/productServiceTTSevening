@@ -1,7 +1,6 @@
 package com.avijit.scalerproductproject.Service;
 
-import com.avijit.scalerproductproject.DTO.ProductDto.FakeStoreApiDto;
-import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
+import com.avijit.scalerproductproject.Clients.FakeStore.FakeStoreApiDto;
 import com.avijit.scalerproductproject.Model.Product;
 
 import java.util.List;
