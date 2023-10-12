@@ -1,7 +1,6 @@
 package com.avijit.scalerproductproject.Service.ThirdPartyApi;
 
 import com.avijit.scalerproductproject.DTO.ProductDto.FakeStoreApiDto;
-import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
 import com.avijit.scalerproductproject.Model.Category;
 import com.avijit.scalerproductproject.Model.Product;
 import com.avijit.scalerproductproject.Service.ProductServiceInterface;
@@ -17,7 +16,6 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
-
 @Service
 public class FakeStoreProdApiService implements ProductServiceInterface {
     private final RestTemplateBuilder restTemplateBuilder;

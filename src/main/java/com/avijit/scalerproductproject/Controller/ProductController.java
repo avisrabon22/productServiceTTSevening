@@ -3,6 +3,7 @@ package com.avijit.scalerproductproject.Controller;
 //import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
 //import com.avijit.scalerproductproject.DTO.ProductDto.ResponseOneProductDto;
 import com.avijit.scalerproductproject.DTO.ProductDto.AddProductDto;
+import com.avijit.scalerproductproject.DTO.ProductDto.ExceptionHandleDto;
 import com.avijit.scalerproductproject.DTO.ProductDto.FakeStoreApiDto;
 import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
 import com.avijit.scalerproductproject.Exception.NoDataFound;
@@ -44,12 +45,12 @@ public class ProductController {
 
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add(
-                "auth-token", "tui_bal_pabi"
+                "auth-token", "tui_bal_pi"
         );
         Optional<Product> productOptional= productServiceInterface.getOneProduct(prodId);
         if(productOptional.isEmpty())
         {
-            throw new NoDataFound("No such Id found in database.");
+            throw new NoDataFound("No such Id found in database for: "+prodId);
         }
 
         ResponseEntity<Product> response;
@@ -92,4 +93,7 @@ public class ProductController {
 
         return productServiceInterface.updateProduct(product, prodId);
         }
+
+
+
     }
