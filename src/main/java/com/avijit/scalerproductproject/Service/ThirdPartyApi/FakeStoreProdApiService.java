@@ -116,7 +116,7 @@ public List<Product> getAllProduct() {
 
 
          ResponseEntity<FakeStoreApiDto> productDtoResponseEntity =requestForEntity(
-                 HttpMethod.PUT,
+                 HttpMethod.PATCH,
                  "https://fakestoreapi.com/products/{id}",
                  fakeStoreApiDto,
                  FakeStoreApiDto.class,
