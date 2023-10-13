@@ -14,6 +14,6 @@ public class ControllerAdvices {
 //        ExceptionHandleDto exceptionHandleDto = new ExceptionHandleDto();
 //        exceptionHandleDto.setMsg(exception.getMessage());
 //        return  new ResponseEntity<>(exceptionHandleDto, HttpStatus.NOT_FOUND);
-        return  new ResponseEntity<>("Phat gya",HttpStatus.NOT_FOUND);
+        return  new ResponseEntity<>("There something wrong",HttpStatus.NOT_FOUND);
     }
 }

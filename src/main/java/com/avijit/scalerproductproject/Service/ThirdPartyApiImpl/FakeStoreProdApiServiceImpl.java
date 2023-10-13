@@ -1,5 +1,4 @@
 package com.avijit.scalerproductproject.Service.ThirdPartyApiImpl;
-
 import com.avijit.scalerproductproject.Clients.FakeStore.FakeStoreApiClient;
 import com.avijit.scalerproductproject.Clients.FakeStore.FakeStoreApiDto;
 import com.avijit.scalerproductproject.Model.Category;
@@ -15,12 +14,11 @@ import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.*;
 @Service
 public class FakeStoreProdApiServiceImpl implements ProductServiceInterface {
-    private FakeStoreApiClient fakeStoreApiClient;
-    private RestTemplateBuilder restTemplateBuilder;
+    private final FakeStoreApiClient fakeStoreApiClient;
+    private final RestTemplateBuilder restTemplateBuilder;
 
       public FakeStoreProdApiServiceImpl(FakeStoreApiClient fakeStoreApiClient,RestTemplateBuilder restTemplateBuilder){
           this.fakeStoreApiClient=fakeStoreApiClient;
@@ -40,20 +38,13 @@ public class FakeStoreProdApiServiceImpl implements ProductServiceInterface {
 
         return  product;
     }
-//*************************Customized Post entity for update method of product  *****************************************************************
-private  <T> ResponseEntity<T> requestForEntity(HttpMethod httpMethod,String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException {
-    RestTemplate restTemplate = restTemplateBuilder.requestFactory(
-            HttpComponentsClientHttpRequestFactory.class
-    ).build();
-        RequestCallback requestCallback = restTemplate.httpEntityCallback(request, responseType);
-    ResponseExtractor<ResponseEntity<T>> responseExtractor = restTemplate.responseEntityExtractor(responseType);
-    return  restTemplate.execute(url, httpMethod, requestCallback, responseExtractor, uriVariables);
-}
 //   ********************************************************************************
     @Override
     public Optional<Product> getOneProduct(Long prodId) {
-        return fakeStoreApiClient.getOneProduct(prodId);
-//        Product product = new Product();
+          Optional<FakeStoreApiDto> clientDto =fakeStoreApiClient.getOneProduct(prodId);
+        return clientDto.map(this::convertFakstoreProductDtoToProduct);
+
+        //        Product product = new Product();
 //         assert prodDto != null;
 //        product.setId(prodDto.getId());
 //        product.setTitle(prodDto.getTitle());
@@ -68,7 +59,7 @@ private  <T> ResponseEntity<T> requestForEntity(HttpMethod httpMethod,String url
     //***************************************************************************************
     @Override
     public Product addNewProduct(FakeStoreApiDto fakeStoreApiDto) {
-    return null;
+    return convertFakstoreProductDtoToProduct(fakeStoreApiClient.addNewProduct(fakeStoreApiDto));
     }
 //**************************************************************************************
 @Override
@@ -89,7 +80,6 @@ public List<Product> getAllProduct() {
 //***********************************************************************************
     @Override
     public Product updateProduct(Product product,Long prodId) {
-
-        return convertFakstoreProductDtoToProduct(productDtoResponseEntity.getBody());
+          return convertFakstoreProductDtoToProduct(fakeStoreApiClient.updateProduct(product,prodId));
     }
 }
