@@ -20,9 +20,26 @@ import java.util.*;
 @Service
 public class FakeStoreProdApiServiceImpl implements ProductServiceInterface {
     private FakeStoreApiClient fakeStoreApiClient;
-      public FakeStoreProdApiServiceImpl(FakeStoreApiClient fakeStoreApiClient){
+    private RestTemplateBuilder restTemplateBuilder;
+
+      public FakeStoreProdApiServiceImpl(FakeStoreApiClient fakeStoreApiClient,RestTemplateBuilder restTemplateBuilder){
           this.fakeStoreApiClient=fakeStoreApiClient;
+          this.restTemplateBuilder = restTemplateBuilder;
       }
+
+    //****************To avoid duplicate code make the function for FakeStoreproductDto to Product***********************************************************************
+    private Product  convertFakstoreProductDtoToProduct(FakeStoreApiDto fakeStoreApiDto){
+        Product product = new Product();
+        product.setId(fakeStoreApiDto.getId());
+        product.setTitle(fakeStoreApiDto.getTitle());
+        product.setPrice(fakeStoreApiDto.getPrice());
+        Category category = new Category();
+        category.setName(fakeStoreApiDto.getCategory());
+        product.setCategory(category);
+        product.setImageUrl(fakeStoreApiDto.getImage());
+
+        return  product;
+    }
 //*************************Customized Post entity for update method of product  *****************************************************************
 private  <T> ResponseEntity<T> requestForEntity(HttpMethod httpMethod,String url, @Nullable Object request, Class<T> responseType, Object... uriVariables) throws RestClientException {
     RestTemplate restTemplate = restTemplateBuilder.requestFactory(
@@ -37,7 +54,7 @@ private  <T> ResponseEntity<T> requestForEntity(HttpMethod httpMethod,String url
     public Optional<Product> getOneProduct(Long prodId) {
         return fakeStoreApiClient.getOneProduct(prodId);
 //        Product product = new Product();
-//        assert prodDto != null;
+//         assert prodDto != null;
 //        product.setId(prodDto.getId());
 //        product.setTitle(prodDto.getTitle());
 //        product.setPrice(prodDto.getPrice());
@@ -51,16 +68,16 @@ private  <T> ResponseEntity<T> requestForEntity(HttpMethod httpMethod,String url
     //***************************************************************************************
     @Override
     public Product addNewProduct(FakeStoreApiDto fakeStoreApiDto) {
-
+    return null;
     }
 //**************************************************************************************
 @Override
-public List<FakeStoreApiDto> getAllProduct() {
-        List<Product> fakeStoreProduct=fakeStoreApiClient.getAllProduct();
+public List<Product> getAllProduct() {
+        List<FakeStoreApiDto> fakeStoreProduct=fakeStoreApiClient.getAllProduct();
         List<Product> productList = new ArrayList<>();
 
      for(FakeStoreApiDto fakeStoreApiDto:fakeStoreProduct){
-         productList.add();
+         productList.add(convertFakstoreProductDtoToProduct(fakeStoreApiDto));
      }
     return productList;
 }
@@ -72,23 +89,7 @@ public List<FakeStoreApiDto> getAllProduct() {
 //***********************************************************************************
     @Override
     public Product updateProduct(Product product,Long prodId) {
-        RestTemplate restTemplate = restTemplateBuilder.build();
 
-             FakeStoreApiDto fakeStoreApiDto = new FakeStoreApiDto();
-             fakeStoreApiDto.setTitle(product.getTitle());
-             fakeStoreApiDto.setPrice(product.getPrice());
-             fakeStoreApiDto.setDescription(product.getDescription());
-             fakeStoreApiDto.setImage(product.getImageUrl());
-             fakeStoreApiDto.setCategory(product.getCategory().getName());
-
-
-         ResponseEntity<FakeStoreApiDto> productDtoResponseEntity =requestForEntity(
-                 HttpMethod.PATCH,
-                 "https://fakestoreapi.com/products/{id}",
-                 fakeStoreApiDto,
-                 FakeStoreApiDto.class,
-                 prodId
-         );
         return convertFakstoreProductDtoToProduct(productDtoResponseEntity.getBody());
     }
 }

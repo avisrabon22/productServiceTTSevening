@@ -1,12 +1,10 @@
 package com.avijit.scalerproductproject.Clients.FakeStore;
-import com.avijit.scalerproductproject.Model.Category;
 import com.avijit.scalerproductproject.Model.Product;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Optional;
 @Component
@@ -16,19 +14,7 @@ public class FakeStoreApiClient {
         this.restTemplateBuilder = restTemplateBuilder;
     }
 
-    //****************To avoid duplicate code make the function for FakeStoreproductDto to Product***********************************************************************
-    private Product  convertFakstoreProductDtoToProduct(FakeStoreApiDto fakeStoreApiDto){
-        Product product = new Product();
-        product.setId(fakeStoreApiDto.getId());
-        product.setTitle(fakeStoreApiDto.getTitle());
-        product.setPrice(fakeStoreApiDto.getPrice());
-        Category category = new Category();
-        category.setName(fakeStoreApiDto.getCategory());
-        product.setCategory(category);
-        product.setImageUrl(fakeStoreApiDto.getImage());
 
-        return  product;
-    }
 //*****************************************************************************************
     public List<FakeStoreApiDto> getAllProduct(){
         RestTemplate restTemplate = restTemplateBuilder.build();
@@ -36,10 +22,10 @@ public class FakeStoreApiClient {
                 "https://fakestoreapi.com/products",
                 FakeStoreApiDto[].class
         );
-        return null;
+        return List.of(apiProdList.getBody());
     }
 //**********************************************************************************************
-  public Optional<Product> getOneProduct(Long prodId){
+  public Optional<FakeStoreApiDto> getOneProduct(Long prodId){
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreApiDto> responseEntity =restTemplate.getForEntity(
                 "https://fakestoreapi.com/products/{id}",
@@ -50,19 +36,11 @@ public class FakeStoreApiClient {
         if(fakeStoreApiDto==null){
             return Optional.empty();
         }
-        return Optional.of(convertFakstoreProductDtoToProduct(responseEntity.getBody()));
+        return Optional.ofNullable(responseEntity.getBody());
     }
 //**************************************************************************************************
     Product addNewProduct(FakeStoreApiDto product){
-        RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<FakeStoreApiDto> response=restTemplate.postForEntity(
-                "https://fakestoreapi.com/products",
-                fakeStoreApiDto,
-                FakeStoreApiDto.class
-        );
-        FakeStoreApiDto prodDto = response.getBody();
-
-        return convertFakstoreProductDtoToProduct(prodDto);
+      return null;
     }
 //*************************************************************************************************
     public boolean deleteProduct(Long prodId){
@@ -70,6 +48,7 @@ public class FakeStoreApiClient {
     }
 //*************************************************************************************************
     public Product updateProduct(Product product,Long prodId){
+
         return null;
     }
 }
