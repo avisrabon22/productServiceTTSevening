@@ -14,7 +14,7 @@ public interface ProductServiceInterface {
 
     Product addNewProduct(FakeStoreApiDto product);
 
-    boolean deleteProduct(Long prodId);
+    String deleteProduct(Long prodId);
 
     Product updateProduct(Product product,Long prodId);
 }

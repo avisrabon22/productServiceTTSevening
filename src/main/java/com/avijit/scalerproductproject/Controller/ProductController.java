@@ -1,7 +1,5 @@
 package com.avijit.scalerproductproject.Controller;
 
-//import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
-//import com.avijit.scalerproductproject.DTO.ProductDto.RandD.ResponseOneProductDto;
 import com.avijit.scalerproductproject.Clients.FakeStore.FakeStoreApiDto;
 import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
 import com.avijit.scalerproductproject.Exception.NoDataFound;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-//import java.util.HashMap;
-//import java.util.Map;
 
 @RestController
 @RequestMapping("/product")
@@ -70,13 +66,7 @@ public class ProductController {
 
         return response;
     }
-        // ****************************************************************
 
-        @DeleteMapping("/{prodId}")
-        public String deleteProduct (@PathVariable("prodId") Long prodId){
-
-            return "Product deleted " + prodId;
-        }
         // *****************************************************************
         @PatchMapping("/{prodId}")
         public Product updateProduct (@PathVariable("prodId") Long prodId , @RequestBody ProdDto prodDto){
@@ -90,5 +80,12 @@ public class ProductController {
 
         return productServiceInterface.updateProduct(product, prodId);
         }
+    // ****************************************************************
+
+    @DeleteMapping("/{prodId}")
+    public String deleteProduct (@PathVariable("prodId") Long prodId){
+
+        return productServiceInterface.deleteProduct(prodId);
+    }
 
     }

@@ -1,8 +1,7 @@
 package com.avijit.scalerproductproject.Clients.FakeStore;
 import com.avijit.scalerproductproject.Model.Product;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -58,10 +57,7 @@ public class FakeStoreApiClient {
         );
         return response.getBody();
     }
-//*************************************************************************************************
-    public boolean deleteProduct(Long prodId){
-        return false;
-    }
+
 //*************************************************************************************************
     public FakeStoreApiDto updateProduct(Product product, Long prodId){
         RestTemplate restTemplate = restTemplateBuilder.requestFactory(
@@ -83,13 +79,28 @@ public class FakeStoreApiClient {
                 prodId
         );
         return fakeStoreProductDtoResponseEntity.getBody();
+    }
 
-//        if (fakeStoreProductDtoResponseEntity.getHeaders())
-//        FakeStoreApiDto fakeStoreProductDtoResponse = restTemplate.patchForObject(
-//                "https://fakestoreapi.com/products/{id}",
-//                fakeStoreApiDto,
-//                FakeStoreApiDto.class,
-//                prodId
-//        );
+    //*************************************************************************************************
+    public String deleteProduct(Long prodId){
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<FakeStoreApiDto> requestEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<FakeStoreApiDto> fakeStoreApiDtoResponseEntity = restTemplate.exchange(
+                "https://fakestoreapi.com/products/{id}",
+                HttpMethod.DELETE,
+                requestEntity,
+                FakeStoreApiDto.class,
+                prodId
+        );
+        if(fakeStoreApiDtoResponseEntity.getStatusCode()== HttpStatus.OK)
+           return "Product "+prodId+" deleted.";
+        else if(fakeStoreApiDtoResponseEntity.getStatusCode()==HttpStatus.NOT_FOUND)
+            return "Product "+prodId+" not found!!";
+        else
+            return "Deletion fail with "+fakeStoreApiDtoResponseEntity.getStatusCode().value();
     }
 }
+

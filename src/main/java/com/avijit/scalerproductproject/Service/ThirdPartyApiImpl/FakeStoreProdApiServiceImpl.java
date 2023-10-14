@@ -44,7 +44,7 @@ public class FakeStoreProdApiServiceImpl implements ProductServiceInterface {
           Optional<FakeStoreApiDto> clientDto =fakeStoreApiClient.getOneProduct(prodId);
         return clientDto.map(this::convertFakstoreProductDtoToProduct);
 
-        //        Product product = new Product();
+        //Product product = new Product();
 //         assert prodDto != null;
 //        product.setId(prodDto.getId());
 //        product.setTitle(prodDto.getTitle());
@@ -74,8 +74,9 @@ public List<Product> getAllProduct() {
 }
 //***************************************************************************************
     @Override
-    public boolean deleteProduct(Long prodId) {
-        return false;
+    public String deleteProduct(Long prodId) {
+
+        return fakeStoreApiClient.deleteProduct(prodId);
     }
 //***********************************************************************************
     @Override
