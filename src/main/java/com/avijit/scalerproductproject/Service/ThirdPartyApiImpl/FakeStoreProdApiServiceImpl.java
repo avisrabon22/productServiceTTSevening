@@ -5,15 +5,8 @@ import com.avijit.scalerproductproject.Model.Category;
 import com.avijit.scalerproductproject.Model.Product;
 import com.avijit.scalerproductproject.Service.ProductServiceInterface;
 import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RequestCallback;
-import org.springframework.web.client.ResponseExtractor;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
+
 import java.util.*;
 @Service
 public class FakeStoreProdApiServiceImpl implements ProductServiceInterface {
@@ -29,7 +22,7 @@ public class FakeStoreProdApiServiceImpl implements ProductServiceInterface {
     private Product  convertFakstoreProductDtoToProduct(FakeStoreApiDto fakeStoreApiDto){
         Product product = new Product();
         product.setId(fakeStoreApiDto.getId());
-        product.setTitle(fakeStoreApiDto.getTitle());
+        product.setProductName(fakeStoreApiDto.getTitle());
         product.setPrice(fakeStoreApiDto.getPrice());
         Category category = new Category();
         category.setName(fakeStoreApiDto.getCategory());

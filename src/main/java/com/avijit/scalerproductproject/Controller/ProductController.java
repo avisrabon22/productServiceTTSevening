@@ -71,7 +71,7 @@ public class ProductController {
         @PatchMapping("/{prodId}")
         public Product updateProduct (@PathVariable("prodId") Long prodId , @RequestBody ProdDto prodDto){
         Product product = new Product();
-        product.setTitle(prodDto.getTitle());
+        product.setProductName(prodDto.getTitle());
         product.setPrice(prodDto.getPrice());
         product.setDescription(prodDto.getDescription());
         product.setCategory(new Category());

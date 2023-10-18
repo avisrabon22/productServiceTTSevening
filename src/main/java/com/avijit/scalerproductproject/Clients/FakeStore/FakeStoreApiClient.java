@@ -68,7 +68,7 @@ public class FakeStoreApiClient {
         fakeStoreApiDto.setDescription(product.getDescription());
         fakeStoreApiDto.setImage(product.getImageUrl());
         fakeStoreApiDto.setPrice(product.getPrice());
-        fakeStoreApiDto.setTitle(product.getTitle());
+        fakeStoreApiDto.setTitle(product.getProductName());
         fakeStoreApiDto.setCategory(product.getCategory().getName());
 
         ResponseEntity<FakeStoreApiDto> fakeStoreProductDtoResponseEntity = requestForEntity(
