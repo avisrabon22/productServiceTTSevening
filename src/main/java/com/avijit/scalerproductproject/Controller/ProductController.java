@@ -2,6 +2,7 @@ package com.avijit.scalerproductproject.Controller;
 
 import com.avijit.scalerproductproject.Clients.FakeStore.FakeStoreApiDto;
 import com.avijit.scalerproductproject.DTO.ProductDto.ProdDto;
+import com.avijit.scalerproductproject.Dao.ProductRepo;
 import com.avijit.scalerproductproject.Exception.NoDataFound;
 import com.avijit.scalerproductproject.Model.Category;
 import com.avijit.scalerproductproject.Model.Product;
@@ -20,8 +21,10 @@ import java.util.Optional;
 @RequestMapping("/product")
 public class ProductController {
     private final ProductServiceInterface productServiceInterface;
-    public ProductController(ProductServiceInterface productServiceInterface) {
+    private final ProductRepo productRepo;
+    public ProductController(ProductServiceInterface productServiceInterface,ProductRepo productRepo) {
         this.productServiceInterface = productServiceInterface;
+        this.productRepo = productRepo;
     }
 
     // *******************************************************************
@@ -35,7 +38,6 @@ public class ProductController {
     public ResponseEntity<Product> getOneProduct(@PathVariable("prodId") Long prodId) throws NoDataFound {
 //             ResponseOneProductDto responseDto =new ResponseOneProductDto();
 //             responseDto.setProduct(productServiceInterface.getOneProduct(prodId));
-
         MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
         headers.add(
                 "auth-token", "tui_bal_pi"
@@ -58,12 +60,19 @@ public class ProductController {
     // *************************************************************
     @PostMapping()
     public ResponseEntity<Product> addNewProduct(@RequestBody FakeStoreApiDto product) {
-        Product newProd = productServiceInterface.addNewProduct(
-                product
-        );
+//        Product newProd = productServiceInterface.addNewProduct(
+//                product
+//        );
+        Product newProd = new Product();
+        newProd.setProductName(product.getTitle());
+        newProd.setPrice(product.getPrice());
+        newProd.setDescription(product.getDescription());
+        newProd.setImageUrl(product.getImage());
+
+        newProd = productRepo.save(newProd);
+
         ResponseEntity<Product> response;
         response = new ResponseEntity<>(newProd, HttpStatus.OK);
-
         return response;
     }
 
