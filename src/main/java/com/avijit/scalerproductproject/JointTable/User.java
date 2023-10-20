@@ -1,4 +1,4 @@
-package com.avijit.scalerproductproject.InheritanceRelation;
+package com.avijit.scalerproductproject.JointTable;
 
 
 import jakarta.persistence.*;
@@ -7,8 +7,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "tbc_user")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Entity(name = "jt_user")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User {
      @Id
      @GeneratedValue(strategy = GenerationType.AUTO)

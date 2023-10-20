@@ -1,4 +1,4 @@
-package com.avijit.scalerproductproject.InheritanceRelation;
+package com.avijit.scalerproductproject.SingleClassTable;
 
 
 import jakarta.persistence.*;
@@ -7,8 +7,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "tbc_user")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Entity(name = "st_user")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(
+        name = "user_type",
+        discriminatorType = DiscriminatorType.INTEGER)
 public class User {
      @Id
      @GeneratedValue(strategy = GenerationType.AUTO)
